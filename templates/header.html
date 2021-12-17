@@ -5,7 +5,7 @@
     <a class="navbar-brand" href="#">
       <img src="{% static './images/python.jpg' %}" width=100>
 			<a class="navbar-brand" href="{%  url 'blog:blog_title' %}">Blog</a>
-			<button class="btn btn-outline-success" type="login">login</button>
+			<button class="btn btn-outline-success" type="login"><a href="{% url 'account:user_login' %}">login</a></button>
     </a>
   </div>
 </nav>
