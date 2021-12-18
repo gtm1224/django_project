@@ -5,7 +5,12 @@
     <a class="navbar-brand" href="#">
       <img src="{% static './images/python.jpg' %}" width=100>
 			<a class="navbar-brand" href="{%  url 'blog:blog_title' %}">Blog</a>
-			<button class="btn btn-outline-success" type="login"><a href="{% url 'account:user_login' %}">login</a></button>
+			{% if user.is_authenticated %}
+			<button class="btn btn-outline-success" type="username"><a href="#">{{user.username}}</a></button>
+			<button class="btn btn-outline-success" type="logout"><a href="{% url 'account:user_logout' %}">log out</a></button>
+			{% else %}
+			<button class="btn btn-outline-success" type="login"><a href="{% url 'account:user_login' %}">log in</a></button>
+			{% endif %}
     </a>
   </div>
 </nav>
