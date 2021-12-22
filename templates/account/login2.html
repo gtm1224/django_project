@@ -7,7 +7,12 @@
 <div class='row text-center'>
     <h1>log in</h1>
     <p>Please enter your username and password</p>
-    <form class='form-horizontal' action="{% url 'account:user_login' %}" method='post'>{% csrf_token %}
+    {% if next %}
+    <form class='form-horizontal' action="{% url 'account:user_login' %}?next={{next}}" method='post'>
+    {% else %}
+    <form class='form-horizontal' action="{% url 'account:user_login' %}" method='post'>
+    {% endif %}
+        {% csrf_token %}
         <div class='form-group'>
             <label class="col-md-5 control-label">username:</label>
             <div class="col-md-auto text-left">{{form.username}}</div>
