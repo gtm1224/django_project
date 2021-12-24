@@ -130,3 +130,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/blog'
 LOGIN_URL = '/account/login'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# in real life use the template below:
+# EMAIL_HOST='smtp@gmail.com'
+# EMAIL_HOST_USER = 'email@gmail.com'
+# EMAIL_HOST_PASSWORD='YOUR PASSWORD'
+# EMAIL_PORT=25
+# EMAIL_USE_TLS=True
+# DEFAULT_FROM_EMAIL="email@gmail.com"
