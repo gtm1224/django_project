@@ -36,5 +36,6 @@ urlpatterns = [
          name='password_reset_complete'),
 
     path('aboutme/',views.myself,name='aboutme'),
+    path('editme/',views.myself_edit,name='editme'),
 ]
 # 6504415781yourmom
