@@ -37,5 +37,6 @@ urlpatterns = [
 
     path('aboutme/',views.myself,name='aboutme'),
     path('editme/',views.myself_edit,name='editme'),
+    path('my-image/',views.my_image,name='my_image'),
 ]
 # 6504415781yourmom

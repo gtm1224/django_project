@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-2%c&(ttiiwcjpp$24=0lgl+yybbxjw7)zftuuo1_6uy@g@o&6q
 DEBUG = True
 
 ALLOWED_HOSTS = []
+X_FRAME_OPTIONS = 'ALLOWALL'
 
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 # Application definition
 

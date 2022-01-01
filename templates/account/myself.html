@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}my information {% endblock %}
-
+{% load static %}
 {% block content %}
 <div class="row text-center vertical-middle-sm">
     <h1>Personal Info:</h1>
@@ -36,10 +36,31 @@
 
 
         </div>
+       <div class='col-md-6'>
+            <div style='margin-right:100px'>
+                {% if userinfo.photo %}
+                <img src="{{ userinfo.photo | striptags }}" class='img-circle' id='my_photo'>
+                {% else %}
+                <img src="{% static 'images/python.jpg' %}"
+                {% endif %}
+            </div>
+            <div style='margin-right:100px'>
+                <button class='btn btn-primary btn-lg' id='upload_image' onclick='upload_image_layer()'>upload avatar</button>
+            </div>
+        </div>
     </div>
-
-
-
-
 </div>
+<!--引入弹出层-->
+<script type='text/javascript' src="{% static 'js/jquery.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/layer.js' %}"></script>
+<script>
+function upload_image_layer(){
+    layer.open({
+        title:'upload avatar',
+        area:['600px', '600px'],
+        type:2,
+        content:"{% url 'account:my_image' %}",
+    });
+}
+</script>
 {% endblock %}
