@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Post blog{% endblock %}
+
+{% block content %}
+<link rel='stylesheet' href="{% static 'editor/css/style.css' %}">
+<link rel='stylesheet' href="{% static 'editor/css/editormd.css' %}">
+
+
+<div class='row text-center'>
+    <form class='form-horizontal' action='.' method='post'>
+        <div class='row'>
+            <div class='col-md-2 text-right'>title:</div>
+            <div class='col-md-10 text-left'>{{blog_form.title}}</div>
+        </div>
+        <div class='row'>
+            <div class='col-md-2 text-right'>content:</div>
+<!--            <div class='col-md-10 text-left'>{{blog_form.body}}</div>-->
+            <div id='editormd' class="cd-md-10 text-left">
+                <textarea style='display:none;' id='id_body'></textarea>
+            </div>
+        </div>
+        <div class='row'>
+            <input type='button' class='btn btn-primary btn-lg' value="post blog" onclick='post_blog()'>
+        </div>
+    </form>
+</div>
+<script type='text/javascript' src="{% static 'js/jquery.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/layer.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/csrf.js' %}"></script>
+<script type="text/javascript" src="{% static 'editor/editormd.min.js' %}"></script>
+<script>
+    function post_blog(){
+        var title = $('#id_title').val();
+        var body = $('#id_body').val();
+        $.ajax({
+            url:"{% url 'blog:blog_post'%}",
+            type:'POST',
+            data:{'title':title, 'body':body},
+            success: function(e){
+                if(e=='1'){
+                    layer.msg('success')
+                    location.href="{% url 'blog:blog_title' %}";
+                }else if(e=='-1'){
+                    layer.msg('busy')
+                }else{
+                    layer.msg('no empty allowed')
+                }
+            }
+        })
+    }
+
+    $(function(){
+        var editor = editormd("editormd",{
+            width:"100%",
+            height:640,
+            syncScrolling:'single',
+            path:"{% static 'editor/lib/'%}"
+        });
+       });
+
+</script>
+{% endblock %}
