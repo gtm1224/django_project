@@ -4,12 +4,22 @@ from .models import BlogArticles
 from django.contrib.auth.decorators import login_required
 from .forms import BlogArticlesForm
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # Create your views here.
 
 def blog_title(request):
     blogs = BlogArticles.objects.all()
-    return render(request,'blog/titles.html',{'blogs':blogs})
+    paginator = Paginator(blogs,2)
+    page = request.GET.get('page')
+    try:
+        current_page = paginator.page(page)
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages)
+    current_blogs = current_page.object_list
+    return render(request,'blog/titles.html',{'blogs':current_blogs,'page':current_page})
 
 def blog_article(request,article_id):
     article=BlogArticles.objects.get(id=article_id)
