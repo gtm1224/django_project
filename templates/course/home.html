@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Course{% endblock %}
+
+{% block content %}
+<div class='container'>
+    <h1>Hello,Python Lover!</h1>
+    <p> welcome to python tutorial </p>
+    <ul>
+        <li>list</li>
+        <li>tuple</li>
+        <li>dic</li>
+        <li>map</li>
+        <li>filter</li>
+        <li>functions</li>
+        <li>lambda</li>
+    </ul>
+    <p><a href="https://docs.python.org/3/tutorial/">visit other resource</a></p>
+    {% load static %}
+    <img src="{% static 'images/python-tm.png' %}">
+</div>
+{% endblock %}
