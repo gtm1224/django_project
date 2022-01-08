@@ -1,23 +1,77 @@
 {% extends 'base.html' %}
-{% block title %}Course List {% endblock %}
+{% load static %}
+{% block title %}Course List{% endblock %}
 
 {% block content %}
 <div class='container'>
+<div class='text-right'>
+        <a href="{% url 'course:course_create' %}"><button type='button' class='btn btn-primary'>post a course</button></a>
+    </div>
     <table class='table table-hover'>
         <tr>
-            <td>id</td>
+            <td>course id</td>
             <td>title</td>
             <td>instructor</td>
             <td>date</td>
+            <td>action</td>
         </tr>
         {% for course in courses %}
-        <tr id={{forloop.counter}}>
-            <td>{{forloop.counter}}</td>
-            <td>{{course.title}}</td>
-            <td>{{course.user.username}}</td>
-            <td>{{course.created}}</td>
+        <tr id={{ forloop.counter }}>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ course.title }}</td>
+            <td>{{ course.user.username }}</td>
+            <td>{{ course.created }}</td>
+            <td>
+                <a class="delete" name="delete" href="{% url 'course:course_delete' course.id %}"><span class="glyphicon glyphicon-file
+glyphicon " >delete</span></a>
+            </td>
         </tr>
         {% endfor %}
     </table>
 </div>
+<script type="text/javascript" src='{% static "js/jquery.js" %}'></script>
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+$(document).ready(function() {
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    var onDelete = function(){
+        alert("delete it?");
+        $.post(this.href, function(data) {
+            if (data.result == "ok"){
+                window.location.reload();
+            } else {
+                alert("sth wrong");
+            }
+        }).fail(function() {
+            alert("error");
+        });
+        return false;
+    }
+    $(".delete").click(onDelete);
+})
+</script>
 {% endblock %}

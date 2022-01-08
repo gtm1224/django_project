@@ -7,6 +7,9 @@ from django.views.generic.edit import CreateView,DeleteView
 from django.shortcuts import redirect
 from .forms import CourseCreateForm
 
+from django.urls import reverse_lazy
+from django.http import HttpResponse
+import json
 
 class CourseHome(TemplateView):
     template_name = "course/home.html"
@@ -39,3 +42,15 @@ class CourseCreateView(UserCourseMixin,CreateView):
             new_course.save()
             return redirect('course:course_list')
         return self.render_to_response({'form':form})
+
+
+class CourseDeleteView(UserCourseMixin, DeleteView):
+    success_url = reverse_lazy('course:course_list')
+
+    def dispatch(self, *args, **kwargs):
+        resp = DeleteView.dispatch(self, *args, **kwargs)
+        if self.request.is_ajax():
+            response_data = {'result':'ok'}
+            return HttpResponse(json.dumps(response_data), content_type='application/json')
+        else:
+            return resp
