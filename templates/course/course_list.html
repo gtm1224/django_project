@@ -24,6 +24,7 @@
             <td>
                 <a class="delete" name="delete" href="{% url 'course:course_delete' course.id %}"><span class="glyphicon glyphicon-file
 glyphicon " >delete</span></a>
+                <a href="{% url 'course:course_detail' course.id %}"><span class="glyphicon glyphicon-search" style="margin-left:20px;">detail</span></a>
             </td>
         </tr>
         {% endfor %}

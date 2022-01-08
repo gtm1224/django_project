@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Course Detail{% endblock %}
+
+{% block content %}
+<div class="row vertical-middle-sm">
+    <h1 class='text-center'>{{ object.title }}</h1>
+    <p class='text-center'>instructor:{{ object.user.username }}</p>
+    <p>intro: {{ object.overview }}</p>
+    {% if object.video %}
+    <div class='text-center'>
+        <video src = "{{ object.video.url }}" controls='controls' class='text-center' width="800"></video>
+    </div>
+    {% else %}
+    <p>No Video Content</p>
+    {% endif %}
+    {% if object.attach %}
+    <p>download content<a href="{{ object.attach.url }}">{{ object.attach.name|slice:"15:" }}</a></p>
+    {% endif %}
+</div>
+{% endblock %}

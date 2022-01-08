@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView,DetailView
 from .models import Course
 from braces.views import LoginRequiredMixin
 
@@ -11,7 +11,9 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 import json
 
-class CourseHome(TemplateView):
+class CourseHome(ListView):
+    model =Course
+    context_object_name = 'courses'
     template_name = "course/home.html"
 
 class UserMixin:
@@ -31,11 +33,11 @@ class CourseListView(UserCourseMixin,ListView):
     template_name = 'course/course_list.html'
 
 class CourseCreateView(UserCourseMixin,CreateView):
-    fields = ['title','overview']
+    fields = ['title','overview','video','attach']
     template_name = 'course/course_create.html'
 
     def post(self,request,*args,**kwargs):
-        form = CourseCreateForm(data=request.POST)
+        form = CourseCreateForm(request.POST,request.FILES)
         if form.is_valid():
             new_course = form.save(commit=False)
             new_course.user = self.request.user
@@ -54,3 +56,6 @@ class CourseDeleteView(UserCourseMixin, DeleteView):
             return HttpResponse(json.dumps(response_data), content_type='application/json')
         else:
             return resp
+
+class CourseDetailView(UserCourseMixin,DetailView):
+    template_name = 'course/course_detail.html'

@@ -4,16 +4,26 @@
 {% block content %}
 <div class='container'>
     <h1>Hello,Python Lover!</h1>
-    <p> welcome to python tutorial </p>
-    <ul>
-        <li>list</li>
-        <li>tuple</li>
-        <li>dic</li>
-        <li>map</li>
-        <li>filter</li>
-        <li>functions</li>
-        <li>lambda</li>
-    </ul>
+
+    <h3> welcome to python tutorial </h3>
+    <br>
+    <p>log in to see your own courses and details</p>
+    <table class='table table-hover'>
+        <tr>
+            <td>course id</td>
+            <td>title</td>
+            <td>instructor</td>
+            <td>date</td>
+        </tr>
+        {% for course in courses %}
+        <tr id={{forloop.counter}}>
+            <td>{{forloop.counter}}</td>
+            <td>{{course.title}}</td>
+            <td>{{course.user.username}}</td>
+            <td>{{course.created}}</td>
+        </tr>
+        {% endfor %}
+    </table>
     <p><a href="https://docs.python.org/3/tutorial/">visit other resource</a></p>
     {% load static %}
     <img src="{% static 'images/python-tm.png' %}">

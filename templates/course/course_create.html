@@ -4,9 +4,25 @@
 
 {% block content %}
 <div class='container'>
-    <form action="." method='post'>{% csrf_token %}
-        {{form.as_p}}
-        <input type='submit' value="post a course">
+    <form action="." method='post' enctype="multipart/form-data">{% csrf_token %}
+<!--        {{form.as_p}}-->
+        <div style='margin-top: 10px'>
+            <div class='col-md-2 text-left'>title:</div>
+            <div class='col-md-10 text-left'>{{form.title}}</div>
+        </div>
+        <div style='margin-top: 10px'>
+            <div class='col-md-2 text-left'>overview:</div>
+            <div class='col-md-10 text-left'>{{form.overview}}</div>
+        </div>
+        <div style='margin-top: 10px'>
+            <div class='col-md-2 text-left'>video:</div>
+            <div class='col-md-10 text-left'>{{form.video}}</div>
+        </div>
+        <div style='margin-top: 10px'>
+            <div class='col-md-2 text-left'>attach:</div>
+            <div class='col-md-10 text-left'>{{form.attach}}</div>
+        </div>
+        <input type='submit' value="post the course">
     </form>
 </div>
 
