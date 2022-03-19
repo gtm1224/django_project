@@ -4,5 +4,5 @@ under the django_project directory, in command line run: python manage.py runser
 <br>
 go to http://127.0.0.1:8000/ to access main page
 <br>
-
+test username: developer_10 passwords: developer_10
 
