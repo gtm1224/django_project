@@ -22,7 +22,7 @@ test username: developer_10 passwords: developer_10
 ![alt text](https://github.com/gtm1224/django_project/blob/master/screenshots/afterLogin.jpg?raw=true)
 # users can post their blogs use markdown format:
 ![alt text](https://github.com/gtm1224/django_project/blob/master/screenshots/post.jpg?raw=true)
-# users can view the course that they post:
+# users can view the courses that they post:
 ![alt text](https://github.com/gtm1224/django_project/blob/master/screenshots/mycourse.jpg?raw=true)
 # users can change their passwords:
 ![alt text](https://github.com/gtm1224/django_project/blob/master/screenshots/changePass.jpg?raw=true)
